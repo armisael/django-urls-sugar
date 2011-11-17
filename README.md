@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url('^home$', home_view, name='home'),
     url_sugar([Constant('page'),
                Variable('pk', '\d+'),
-	       ], page_view, name='page'),
+              ], page_view, name='page'),
     ...
 ```
 
@@ -46,7 +46,7 @@ A variable is more complex. In general, it allows to define a variable in the ur
 
 * `Variable('language', '[a-z]{2}')` which will, easy to guess, generate the url `^(?P<language>[a-z]{2}')$`.
 
-Variables allows however more complex interaction. Suppose you want the variable to be an hyphen-separated list of something. Variables allows you to specify this with a simple
+Variables allows however more complex interaction. Suppose you want the variable to be an hyphen-separated list of something. Variable allows you to specify this with a simple
 
 * `Variable('languages', '[a-z]{2}', separator='-')`.
 
@@ -60,38 +60,39 @@ The Optional element allows us to define optional parts in the url. Optional tak
 * `Optional(Constant('home')), Optional(Constant('index'))` will generate `^/$`, `^home/$`, `^index/$` and `^home/index/$`.
 
 
-### Special cases
+Special cases
+-------------
 
-#### Prefix and Suffix
-Constant and Variable allow to specify a prefix and a suffix, which are by default respectively '' and '/'. In this way, `Constant('home')` generates `^home/$`. Using custom prefixes and suffixes can be useful for example when handling special resource types:
+### Prefix and Suffix
+Constant and Variable allow to specify a prefix and a suffix, which are by default respectively `''` and `'/'`. In this way, `Constant('home')` generates `^home/$`. Using custom prefixes and suffixes can be useful for example when handling special resource types:
 
 ```python
 url_sugar([Constant('resource'),
-	   Variable('slug', '[a-z0-9-]+', suffix=''),
-	   Variable('type', '[a-z]+', prefix='.'),
-	   ], resource_view, name='resource')
+           Variable('slug', '[a-z0-9-]+', suffix=''),
+           Variable('type', '[a-z]+', prefix='.'),
+           ], resource_view, name='resource')
 ```
 
-This will handle urls like `www.example.com/resource/my-awesome-resource.json`
+This will handle urls like `/resource/my-awesome-resource.json`
 
 
-#### Variable disambiguation
+### Variable disambiguation
 When having too many optional variables, it may become impossible for Django to understand which variable should get the given value. For example:
 
 ```python
 url_sugar([Constant('pages'),
-	   Optional(Variable('language', '[a-z]{2}')),
-	   Optional(Variable('filter', [a-z]+')),
-	   ], page_view, name='page')
+           Optional(Variable('language', '[a-z]{2}')),
+           Optional(Variable('filter', [a-z]+')),
+           ], page_view, name='page')
 ```
 
-In this case it is impossible to distinguish between `/pages/it/` and `pages/blogposts`. Variable allows then to be disambiguated, setting the `unambiguous` flag:
+In this case it is impossible to distinguish between `/pages/it/` and `pages/blogposts/`. Variable allows then to be disambiguated, setting the `unambiguous` flag:
 
 ```python
 url_sugar([Constant('pages'),
-	   Optional(Variable('language', '[a-z]{2}', unambiguous=True)),
-	   Optional(Variable('filter', [a-z]+'), unambiguous=True),
-	   ], page_view, name='page')
+           Optional(Variable('language', '[a-z]{2}', unambiguous=True)),
+           Optional(Variable('filter', [a-z]+'), unambiguous=True),
+           ], page_view, name='page')
 ```
 
 Which will handle urls such as `/pages/language:it/`, `/pages/filter:blogposts/` or `/pages/language:it/filter:blogposts/`.
