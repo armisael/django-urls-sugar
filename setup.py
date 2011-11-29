@@ -14,7 +14,7 @@ setup(
         "urls_sugar",
     ],
     classifiers = [
-        "Development Status :: 1 - Alpha",
+        "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
