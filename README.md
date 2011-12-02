@@ -13,7 +13,8 @@ In order to use django-urls-sugar you just need to slightly alter your urls.py f
 
 ```python
 from django.conf.urls.defaults import url
-from urls_sugar import patterns, url_sugar, Constant, Variable
+from urls_sugar.utils import patterns, url_sugar
+from urls_sugar.classes import Constant, Variable
 
 urlpatterns = patterns('',
     url('^home$', home_view, name='home'),

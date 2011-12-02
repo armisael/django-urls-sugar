@@ -1,27 +1,7 @@
-""" django-urls-sugar
+""" django-urls-sugar classes
 """
 
-from django.conf.urls.defaults import patterns as orig_patterns, url
-
-
-def patterns(prefix, *args):
-    """ A substitute for django.conf.urls.defaults.patterns: cycles over the
-    given url list looking for instances of UrlSugar, adding the generated
-    urls and calling the original `patterns'.
-    """
-    pattern_list = []
-    for an_url in args:
-        if isinstance(an_url, UrlSugar):
-            pattern_list += an_url.generate_urls()
-        else:
-            pattern_list.append(an_url)
-    return orig_patterns(prefix, *pattern_list)
-
-
-def url_sugar(params, view, **kwargs):
-    """ Builds an UrlSugar class with the given parameters.
-    """
-    return UrlSugar(params, view, **kwargs)
+from django.conf.urls.defaults import url
 
 
 class UrlSugarElement(object):

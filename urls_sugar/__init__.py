@@ -1,3 +1,3 @@
+""" django-urls-sugar init file
+"""
 __version__ = "0.1"
-
-from urls_sugar import *
