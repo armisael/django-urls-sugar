@@ -1,3 +1,6 @@
 *.py[co~]
 \#*\#
 .idea
+build
+dist
+MANIFEST
