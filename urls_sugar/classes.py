@@ -60,7 +60,7 @@ class Variable(UrlSugarElement):
         self.min = min_v if min_v >= 1 else 1
         self.max = max_v if max_v >= 0 else 0
         self.unambiguous = kwargs.get('unambiguous', False)
-        if max != 0 and self.min > self.max:
+        if self.max != 0 and self.min > self.max:
             self.max = self.min
 
     def get_regexp(self):
