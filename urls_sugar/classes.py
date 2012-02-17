@@ -84,16 +84,16 @@ class UrlSugar(object):
     """ An UrlSugar url. It represents a generic set of urls, that can be
     generated and added to the django-patterns.
     """
-    def __init__(self, params, view, **kwargs):
+    def __init__(self, params, *args, **kwargs):
         self.params = params
-        self.view = view
+        self.args = args
         self.kwargs = kwargs
 
     def generate_urls(self):
         """ Generates the urls for this UrlSugar instance.
         """
         regexps = UrlSugar._generate_urls_for_elements(self.params)
-        return [url(r, self.view, **self.kwargs) for r in regexps[::-1]]
+        return [url(r, *self.args, **self.kwargs) for r in regexps[::-1]]
 
     @staticmethod
     def _generate_urls_for_elements(elements):

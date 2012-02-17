@@ -19,7 +19,7 @@ def patterns(prefix, *args):
     return django_patterns(prefix, *pattern_list)
 
 
-def url_sugar(params, view, **kwargs):
+def url_sugar(params, *args, **kwargs):
     """ Builds an UrlSugar class with the given parameters.
     """
-    return UrlSugar(params, view, **kwargs)
+    return UrlSugar(params, *args, **kwargs)

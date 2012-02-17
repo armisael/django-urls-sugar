@@ -7,9 +7,9 @@ setup(
     author = "Stefano Parmesan",
     author_email = "s.parmesan@gmail.com",
     description = "A library for making complex urls in Django easier.",
-    long_description = open("README.md").read(),
+    long_description = open("README.rst").read(),
     license = "BSD",
-    url = "http://github.com/armisael/django-urls-sugar",
+    url = "http://github.com/ahref/django-urls-sugar",
     packages = [
         "urls_sugar",
     ],
