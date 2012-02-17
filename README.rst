@@ -6,7 +6,13 @@ django-urls-sugar aims to make defining complex urls in django easier.
 It provides a `patterns' method that extends the django.conf.urls.defaults functionalities, allowing to define more complex structured urls.
 
 Its implementation takes inspiration from django-templatetags-sugar_.
-.. _django-templatetags-sugar: http://github.com/alex/django-templatetag-sugar
+
+
+Installation
+============
+
+Just run ``pip install django-urls-sugar`` in a terminal to do the magic.
+
 
 Usage
 =====
@@ -16,7 +22,7 @@ In order to use django-urls-sugar you just need to slightly alter your urls.py f
     from django.conf.urls.defaults import url
     from urls_sugar.utils import patterns, url_sugar
     from urls_sugar.classes import Constant, Variable
-
+    
     urlpatterns = patterns('',
         url('^home$', home_view, name='home'),
         url_sugar([Constant('page'),
@@ -96,3 +102,5 @@ In this case it is impossible to distinguish between ``/pages/it/`` and ``pages/
                ], page_view, name='page')
 
 Which will handle urls such as ``/pages/language:it/``, ``/pages/filter:blogposts/`` or ``/pages/language:it/filter:blogposts/``.
+
+.. _django-templatetags-sugar: http://github.com/alex/django-templatetag-sugar
