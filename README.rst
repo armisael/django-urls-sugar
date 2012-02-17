@@ -17,8 +17,8 @@ Just run ``pip install django-urls-sugar`` in a terminal to do the magic.
 Usage
 =====
 
-In order to use django-urls-sugar you just need to slightly alter your urls.py files, using the redefined patterns (which just extends the default one, allowing you to define usual urls as well). For example:
-
+In order to use django-urls-sugar you just need to slightly alter your urls.py files, using the redefined patterns (which just extends the default one, allowing you to define usual urls as well). For example::
+    
     from django.conf.urls.defaults import url
     from urls_sugar.utils import patterns, url_sugar
     from urls_sugar.classes import Constant, Variable
@@ -31,7 +31,7 @@ In order to use django-urls-sugar you just need to slightly alter your urls.py f
         ...
 
 
-This two urls will handle
+This two urls will handle::
 
     /home/
     /page/(?P<pk>\d+)/
@@ -75,7 +75,7 @@ Special cases
 
 Prefix and Suffix
 -----------------
-Constant and Variable allow to specify a prefix and a suffix, which are by default respectively ``''`` and ``'/'``. In this way, ``Constant('home')`` generates ``^home/$``. Using custom prefixes and suffixes can be useful for example when handling special resource types:
+Constant and Variable allow to specify a prefix and a suffix, which are by default respectively ``''`` and ``'/'``. In this way, ``Constant('home')`` generates ``^home/$``. Using custom prefixes and suffixes can be useful for example when handling special resource types::
 
     url_sugar([Constant('resource'),
                Variable('slug', '[a-z0-9-]+', suffix=''),
@@ -87,14 +87,14 @@ This will handle urls like ``/resource/my-awesome-resource.json``
 
 Variable disambiguation
 -----------------------
-When having too many optional variables, it may become impossible for Django to understand which variable should get the given value. For example:
+When having too many optional variables, it may become impossible for Django to understand which variable should get the given value. For example::
 
     url_sugar([Constant('pages'),
                Optional(Variable('language', '[a-z]{2}')),
                Optional(Variable('filter', [a-z]+')),
                ], page_view, name='page')
 
-In this case it is impossible to distinguish between ``/pages/it/`` and ``pages/blogposts/``. Variable allows then to be disambiguated, setting the ``unambiguous`` flag:
+In this case it is impossible to distinguish between ``/pages/it/`` and ``pages/blogposts/``. Variable allows then to be disambiguated, setting the ``unambiguous`` flag::
 
     url_sugar([Constant('pages'),
                Optional(Variable('language', '[a-z]{2}', unambiguous=True)),
