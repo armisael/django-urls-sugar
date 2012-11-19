@@ -1,12 +1,11 @@
 """ django-urls-sugar utils
 """
 
-from django.conf.urls.defaults import patterns as django_patterns
 from classes import UrlSugar
 
 
-def patterns(prefix, *args):
-    """ A substitute for django.conf.urls.defaults.patterns: cycles over the
+def sugar_patterns(original_patterns, prefix, *args):
+    """ A substitute for django patterns: cycles over the
     given url list looking for instances of UrlSugar, adding the generated
     urls and calling the original `patterns'.
     """
@@ -16,7 +15,21 @@ def patterns(prefix, *args):
             pattern_list += an_url.generate_urls()
         else:
             pattern_list.append(an_url)
-    return django_patterns(prefix, *pattern_list)
+    return original_patterns(prefix, *pattern_list)
+
+
+def patterns(prefix, *args):
+    """ calls sugar_patterns with default django patterns 
+    """
+    from django.conf.urls.defaults import patterns as django_patterns
+    return sugar_patterns(django_patterns, prefix, *args)
+
+
+def i18n_patterns(prefix, *args):
+    """ calls sugar_patterns with django 1.4 localized patterns
+    """
+    from django.conf.urls.i18n import i18n_patterns as django_i18n_patterns
+    return sugar_patterns(django_i18n_patterns, prefix, *args)
 
 
 def url_sugar(params, *args, **kwargs):
